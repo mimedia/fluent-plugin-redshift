@@ -2,7 +2,7 @@ module Fluent
 
 
 class RedshiftOutput < BufferedOutput
-  Fluent::Plugin.register_output('redshift', self)
+  Fluent::Plugin.register_output('redshift_mm', self)
 
   NULL_CHAR_FOR_COPY = "\\N"
 
