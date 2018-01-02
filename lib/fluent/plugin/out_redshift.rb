@@ -263,9 +263,10 @@ DESC
     begin
       gzw = Zlib::GzipWriter.new(dst_file)
       chunk.msgpack_each do |record|
-        next unless record
-        begin
-          hash = json? ? json_to_hash(record[@record_log_tag]) : record[@record_log_tag]
+        next unless record[@record_log_tag]
+        begin       
+          JSON.parse(record[@record_log_tag]).each do |hash|
+      
           tsv_text = hash_to_table_text(redshift_table_columns, hash, delimiter)
           gzw.write(tsv_text) if tsv_text and not tsv_text.empty?
         rescue => e
